@@ -6,6 +6,11 @@ using Assert = NUnit.Framework.Assert;
 
 namespace CheckForWinnerTest
 {
+
+    //Testy ktore sprawdzaja na przekatnej typu '|'
+    //Raport:przechodzi wszystkie testy : zwycieza O, zwycieza X, nikt nie zwycieza w sytuacji (0X0, X0X) 
+
+
     [TestClass]
     public class Vertical_Test
 
@@ -72,5 +77,71 @@ namespace CheckForWinnerTest
             Assert.AreEqual(gameResult, MarkType.Nought);
 
         }
+
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        [TestCase(12)]
+        [TestCase(13)]
+        [TestCase(14)]
+        public void Win_Outcome_None(int startPosition)
+        {
+
+            CheckForWinner check = new CheckForWinner();
+            MarkType[] mResults = new MarkType[25];
+
+            mResults[startPosition] = MarkType.Nought;
+            mResults[startPosition + 5] = MarkType.Cross;
+            mResults[startPosition + 10] = MarkType.Nought;
+
+            var gameResult = check.CheckWin(mResults);
+
+            Assert.AreEqual(gameResult, MarkType.Free);
+
+        }
+
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        [TestCase(12)]
+        [TestCase(13)]
+        [TestCase(14)]
+        public void Win_Outcome_None2(int startPosition)
+        {
+
+            CheckForWinner check = new CheckForWinner();
+            MarkType[] mResults = new MarkType[25];
+
+            mResults[startPosition] = MarkType.Cross;
+            mResults[startPosition + 5] = MarkType.Nought;
+            mResults[startPosition + 10] = MarkType.Cross;
+
+            var gameResult = check.CheckWin(mResults);
+
+            Assert.AreEqual(gameResult, MarkType.Free);
+
+        }
+
+
     }
 }
