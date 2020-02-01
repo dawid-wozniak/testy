@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using kolkokrzyzyk;
 using Class_Library;
+using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 
 namespace CheckForWinnerTest
 {
@@ -13,52 +10,66 @@ namespace CheckForWinnerTest
     public class Vertical_Test
 
     {
-        [TestMethod]
-        public void Test_CHeCkwin_Outcome_Cross_Vertical()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        [TestCase(12)]
+        [TestCase(13)]
+        [TestCase(14)]
+        public void Win_Outcome_Cross(int startPosition)
         {
 
             CheckForWinner check = new CheckForWinner();
             MarkType[] mResults = new MarkType[25];
 
-            for (int i = 0; i < 15; i++)
-            {
-                
-              
-               mResults[i] = MarkType.Cross;
-               mResults[i + 5] = MarkType.Cross;
-               mResults[i + 10] = MarkType.Cross;
+            mResults[startPosition] = MarkType.Cross;
+            mResults[startPosition + 5] = MarkType.Cross;
+            mResults[startPosition + 10] = MarkType.Cross;
 
-               var mark = check.CheckWin(mResults);
-               var value = MarkType.Cross;
-               Assert.AreEqual(mark, value);
-              
+            var gameResult = check.CheckWin(mResults);
 
-            }
-
+            Assert.AreEqual(gameResult, MarkType.Cross);
 
         }
 
-        [TestMethod]
-        public void Test_CHeCkwin_Outcome_Nought_Vertical()
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        [TestCase(12)]
+        [TestCase(13)]
+        [TestCase(14)]
+        public void Win_Outcome_Nought(int startPosition)
         {
+
             CheckForWinner check = new CheckForWinner();
             MarkType[] mResults = new MarkType[25];
 
-            for (int i = 0; i < 15; i++)
-            {
+            mResults[startPosition] = MarkType.Nought;
+            mResults[startPosition + 5] = MarkType.Nought;
+            mResults[startPosition + 10] = MarkType.Nought;
 
+            var gameResult = check.CheckWin(mResults);
 
-                mResults[i] = MarkType.Nought;
-                mResults[i + 5] = MarkType.Nought;
-                mResults[i + 10] = MarkType.Nought;
-
-                var mark = check.CheckWin(mResults);
-                var value = MarkType.Nought;
-                Assert.AreEqual(mark, value);
-
-
-            }
-
+            Assert.AreEqual(gameResult, MarkType.Nought);
 
         }
     }
